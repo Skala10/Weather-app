@@ -7,6 +7,15 @@ class WeatherApp {
     this.dateElement = document.querySelector(".header__current-date")
     this.geolocateIcons = document.querySelectorAll(".header__geolocate")
 
+    this.localStorageKey = "weatherAppData"
+    this.city = ""
+
+    const storedData = localStorage.getItem(this.localStorageKey)
+    if (storedData) {
+      const { city } = JSON.parse(storedData)
+      this.city = city
+    }
+
     this.icons = {
       "01d": "wi-day-sunny",
       "02d": "wi-day-cloudy",
@@ -28,6 +37,14 @@ class WeatherApp {
       "50n": "wi-night-fog",
     }
   }
+
+  saveDataToLocalStorage() {
+    const data = {
+      city: this.city,
+    }
+    localStorage.setItem(this.localStorageKey, JSON.stringify(data))
+  }
+
   printTodayDate() {
     const today = new Date()
     const options = {
@@ -36,6 +53,7 @@ class WeatherApp {
       month: "long",
       day: "numeric",
     }
+
     this.dateElement.insertAdjacentText(
       "beforeend",
       today.toLocaleString("en-us", options)
@@ -80,6 +98,7 @@ class WeatherApp {
           obj.dt_txt.endsWith("06:00:00")
         )
         this.renderForecast(forecastData)
+        this.saveDataToLocalStorage()
       })
   }
 
@@ -96,7 +115,8 @@ class WeatherApp {
                 this.icons[data.weather[0].icon]
               } weather-icon"></i>
               <span class="weather__celsius-value">${Math.floor(
-                data.main.temp - 273,15
+                data.main.temp - 273,
+                15
               )}°C</span>
             </p>
             <p class="summary__sky">${data.weather[0].main}</p>
@@ -112,6 +132,8 @@ class WeatherApp {
           </div>`
         this.removeChildren(this.weatherElement)
         this.weatherElement.insertAdjacentHTML("beforeend", markup)
+        this.city = data.name
+        this.saveDataToLocalStorage()
       })
   }
 
@@ -158,6 +180,11 @@ class WeatherApp {
       })
     })
     this.printTodayDate()
+
+    if (this.city) {
+      this.getWeatherByCity(this.city)
+      this.getForecastByCity(this.city)
+    }
   }
 }
 
