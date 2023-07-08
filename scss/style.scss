@@ -32,12 +32,25 @@ body {
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		@media (max-width: 669px) {
+			flex-wrap: wrap;
+			row-gap: 10px;
+		}
+		@media (max-width: 500px) {
+			text-align: center;
+			flex-direction: column;
+		}
 	}
 
 	&__logo {
 		font-size: 24px;
 		font-weight: 700;
 		text-align: center;
+		padding-right: 20px;
+	}
+
+	&__current-date {
+		padding-right: 20px;
 	}
 
 	&__location {
@@ -163,8 +176,9 @@ body {
 .forecast {
 	&__container {
 		display: flex;
-		justify-content: space-between;
 		flex-wrap: wrap;
+		column-gap: 25px;
+		row-gap: 15px;
 	}
 
 	&__day {
@@ -173,16 +187,20 @@ body {
 		justify-content: center;
 		align-items: center;
 		background-color: #4a9a8f;
-		// flex: 1 0 100%;
-		padding: 20px 50px;
-		gap: 10px;
+		gap: 15px;
+		@media (min-width: 669px) {
+			flex: 1 0 15%;
+		}
+		flex: 1 1 100%;
 	}
 
 	&__date {
+		margin-top: 20px;
 		font-size: 20px;
 	}
 
 	&__icon {
+		font-size: 36px;
 	}
 
 	&__temp {
@@ -190,10 +208,10 @@ body {
 	}
 
 	&__desc {
+		margin-bottom: 20px;
 	}
 }
 .wi {
 }
 .wi-cloudy {
-	font-size: 36px;
 }

@@ -96,7 +96,7 @@ class WeatherApp {
                 this.icons[data.weather[0].icon]
               } weather-icon"></i>
               <span class="weather__celsius-value">${Math.floor(
-                data.main.temp
+                data.main.temp - 273,15
               )}°C</span>
             </p>
             <p class="summary__sky">${data.weather[0].main}</p>
