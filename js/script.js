@@ -132,7 +132,7 @@ class WeatherApp {
           </div>`
         this.removeChildren(this.weatherElement)
         this.weatherElement.insertAdjacentHTML("beforeend", markup)
-        this.city = data.name
+		     this.city = data.name
         this.saveDataToLocalStorage()
       })
   }
@@ -168,6 +168,7 @@ class WeatherApp {
       e.preventDefault()
       this.getWeatherByCity(this.cityField.value)
       this.getForecastByCity(this.cityField.value)
+
     })
 
     this.geolocateIcons.forEach((icon) => {
