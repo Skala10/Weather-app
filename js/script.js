@@ -90,25 +90,27 @@ class WeatherApp {
     })
   }
 
-  getForecast(url) {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const forecastData = data.list.filter((obj) =>
-          obj.dt_txt.endsWith("06:00:00")
-        )
-        this.renderForecast(forecastData)
-        this.saveDataToLocalStorage()
-      })
+  async getForecast(url) {
+    try {
+      const response = await fetch(url)
+      const data = await response.json()
+      const forecastData = data.list.filter((obj) =>
+        obj.dt_txt.endsWith("06:00:00")
+      )
+      this.renderForecast(forecastData)
+      this.saveDataToLocalStorage()
+    } catch (error) {
+      console.error("Error fetching forecast data:", error)
+    }
   }
 
-  getCityWeather(url) {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const markup = `<h1 class="weather__location">${data.name}, ${
-          data.sys.country
-        }</h1>
+  async getCityWeather(url) {
+    try {
+      const response = await fetch(url)
+      const data = await response.json()
+      const markup = `<h1 class="weather__location">${data.name}, ${
+        data.sys.country
+      }</h1>
           <div class="weather__summary summary">
             <p class="summary__weather">
               <i class="wi ${
@@ -130,11 +132,13 @@ class WeatherApp {
               </li>
             </ul>
           </div>`
-        this.removeChildren(this.weatherElement)
-        this.weatherElement.insertAdjacentHTML("beforeend", markup)
-		     this.city = data.name
-        this.saveDataToLocalStorage()
-      })
+      this.removeChildren(this.weatherElement)
+      this.weatherElement.insertAdjacentHTML("beforeend", markup)
+      this.city = data.name
+      this.saveDataToLocalStorage()
+    } catch (error) {
+      console.error("Error fetching weather data:", error)
+    }
   }
 
   getWeatherByCoordinates(latitude, longitude) {
@@ -168,7 +172,6 @@ class WeatherApp {
       e.preventDefault()
       this.getWeatherByCity(this.cityField.value)
       this.getForecastByCity(this.cityField.value)
-
     })
 
     this.geolocateIcons.forEach((icon) => {
