@@ -5,7 +5,7 @@ You can check weater in any city, also you can check weather by geolocation.
 
 # Demo: 
 
-Demo: https://skala10.github.io/weather-app/
+Demo: https://skala10.github.io/weather-app-js/
 
 ## Features
 
