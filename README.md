@@ -11,7 +11,8 @@ Demo: https://skala10.github.io/weather-app/
 
 - Feature 1: Check weather by geolocation
 - Feature 2: Work with API
-- Feature 3: DOM manipulation 
+- Feature 3: DOM manipulation
+- Feature 4: Save all information in local storage
 
 ## Technologies
 
